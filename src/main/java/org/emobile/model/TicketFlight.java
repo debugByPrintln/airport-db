@@ -25,6 +25,30 @@ public class TicketFlight {
     @Column(name = "amount", nullable = false)
     private Double amount;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TicketFlight that = (TicketFlight) o;
+
+        if (!id.equals(that.id)) return false;
+        if (!ticket.equals(that.ticket)) return false;
+        if (!flight.equals(that.flight)) return false;
+        if (!fareConditions.equals(that.fareConditions)) return false;
+        return amount.equals(that.amount);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + ticket.hashCode();
+        result = 31 * result + flight.hashCode();
+        result = 31 * result + fareConditions.hashCode();
+        result = 31 * result + amount.hashCode();
+        return result;
+    }
+
     public TicketFlightId getId() {
         return id;
     }

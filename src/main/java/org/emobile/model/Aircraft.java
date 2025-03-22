@@ -21,6 +21,28 @@ public class Aircraft {
     @OneToMany(mappedBy = "aircraft")
     private Set<Seat> seats;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Aircraft aircraft = (Aircraft) o;
+
+        if (!aircraftCode.equals(aircraft.aircraftCode)) return false;
+        if (!model.equals(aircraft.model)) return false;
+        if (!range.equals(aircraft.range)) return false;
+        return seats.equals(aircraft.seats);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = aircraftCode.hashCode();
+        result = 31 * result + model.hashCode();
+        result = 31 * result + range.hashCode();
+        result = 31 * result + seats.hashCode();
+        return result;
+    }
+
     public String getAircraftCode() {
         return aircraftCode;
     }

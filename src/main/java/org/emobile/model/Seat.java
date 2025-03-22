@@ -17,6 +17,26 @@ public class Seat {
     @Column(name = "fare_conditions", length = 10, nullable = false)
     private String fareConditions;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Seat seat = (Seat) o;
+
+        if (!id.equals(seat.id)) return false;
+        if (!aircraft.equals(seat.aircraft)) return false;
+        return fareConditions.equals(seat.fareConditions);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + aircraft.hashCode();
+        result = 31 * result + fareConditions.hashCode();
+        return result;
+    }
+
     public SeatId getId() {
         return id;
     }

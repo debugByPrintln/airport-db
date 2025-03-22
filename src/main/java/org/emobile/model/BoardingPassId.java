@@ -14,6 +14,24 @@ public class BoardingPassId implements Serializable {
     @Column(name = "flight_id")
     private Integer flightId;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BoardingPassId that = (BoardingPassId) o;
+
+        if (!ticketNo.equals(that.ticketNo)) return false;
+        return flightId.equals(that.flightId);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = ticketNo.hashCode();
+        result = 31 * result + flightId.hashCode();
+        return result;
+    }
+
     public String getTicketNo() {
         return ticketNo;
     }

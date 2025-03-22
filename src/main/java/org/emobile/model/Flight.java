@@ -2,6 +2,7 @@ package org.emobile.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -44,6 +45,44 @@ public class Flight {
 
     @OneToMany(mappedBy = "flight")
     private Set<TicketFlight> ticketFlights;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Flight flight = (Flight) o;
+
+        if (!flightId.equals(flight.flightId)) return false;
+        if (!flightNo.equals(flight.flightNo)) return false;
+        if (!scheduledDeparture.equals(flight.scheduledDeparture)) return false;
+        if (!scheduledArrival.equals(flight.scheduledArrival)) return false;
+        if (!departureAirport.equals(flight.departureAirport)) return false;
+        if (!arrivalAirport.equals(flight.arrivalAirport)) return false;
+        if (!status.equals(flight.status)) return false;
+        if (!aircraft.equals(flight.aircraft)) return false;
+        if (!Objects.equals(actualDeparture, flight.actualDeparture))
+            return false;
+        if (!Objects.equals(actualArrival, flight.actualArrival))
+            return false;
+        return ticketFlights.equals(flight.ticketFlights);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = flightId.hashCode();
+        result = 31 * result + flightNo.hashCode();
+        result = 31 * result + scheduledDeparture.hashCode();
+        result = 31 * result + scheduledArrival.hashCode();
+        result = 31 * result + departureAirport.hashCode();
+        result = 31 * result + arrivalAirport.hashCode();
+        result = 31 * result + status.hashCode();
+        result = 31 * result + aircraft.hashCode();
+        result = 31 * result + (actualDeparture != null ? actualDeparture.hashCode() : 0);
+        result = 31 * result + (actualArrival != null ? actualArrival.hashCode() : 0);
+        result = 31 * result + ticketFlights.hashCode();
+        return result;
+    }
 
     public Integer getFlightId() {
         return flightId;

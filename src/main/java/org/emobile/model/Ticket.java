@@ -2,6 +2,7 @@ package org.emobile.model;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -27,6 +28,32 @@ public class Ticket {
 
     @OneToMany(mappedBy = "ticket")
     private Set<TicketFlight> ticketFlights;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Ticket ticket = (Ticket) o;
+
+        if (!ticketNo.equals(ticket.ticketNo)) return false;
+        if (!booking.equals(ticket.booking)) return false;
+        if (!passengerId.equals(ticket.passengerId)) return false;
+        if (!passengerName.equals(ticket.passengerName)) return false;
+        if (!Objects.equals(contactData, ticket.contactData)) return false;
+        return ticketFlights.equals(ticket.ticketFlights);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = ticketNo.hashCode();
+        result = 31 * result + booking.hashCode();
+        result = 31 * result + passengerId.hashCode();
+        result = 31 * result + passengerName.hashCode();
+        result = 31 * result + (contactData != null ? contactData.hashCode() : 0);
+        result = 31 * result + ticketFlights.hashCode();
+        return result;
+    }
 
     public String getTicketNo() {
         return ticketNo;

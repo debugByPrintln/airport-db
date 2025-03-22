@@ -22,6 +22,28 @@ public class Booking {
     @OneToMany(mappedBy = "booking")
     private Set<Ticket> tickets;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Booking booking = (Booking) o;
+
+        if (!bookRef.equals(booking.bookRef)) return false;
+        if (!bookDate.equals(booking.bookDate)) return false;
+        if (!totalAmount.equals(booking.totalAmount)) return false;
+        return tickets.equals(booking.tickets);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = bookRef.hashCode();
+        result = 31 * result + bookDate.hashCode();
+        result = 31 * result + totalAmount.hashCode();
+        result = 31 * result + tickets.hashCode();
+        return result;
+    }
+
     public String getBookRef() {
         return bookRef;
     }

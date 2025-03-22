@@ -25,6 +25,30 @@ public class BoardingPass {
     @Column(name = "seat_no", length = 4, nullable = false)
     private String seatNo;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BoardingPass that = (BoardingPass) o;
+
+        if (!id.equals(that.id)) return false;
+        if (!ticket.equals(that.ticket)) return false;
+        if (!flight.equals(that.flight)) return false;
+        if (!boardingNo.equals(that.boardingNo)) return false;
+        return seatNo.equals(that.seatNo);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + ticket.hashCode();
+        result = 31 * result + flight.hashCode();
+        result = 31 * result + boardingNo.hashCode();
+        result = 31 * result + seatNo.hashCode();
+        return result;
+    }
+
     public BoardingPassId getId() {
         return id;
     }
